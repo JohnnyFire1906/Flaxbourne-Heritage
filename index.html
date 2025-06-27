@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <!-- Load Tailwind CSS from CDN - provides utility classes for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.cdnfonts.com/css/bell-mt" rel="stylesheet">
+    <style>
+        /* Custom styles for the page, overrides Tailwind if needed */
+        body, h1, h2, h3, h4, h5, h6, p, a, button, input, textarea, label, li, span, div {
+            font-family: 'Bell MT', 'Inter', serif !important;
+        }
+        body {
+            /* Using Inter font as per instructions */
+        }
+        /* Basic styling for smooth scrolling when navigating to anchor links */
+        html {
+            scroll-behavior: smooth;
+        }
+        /* Hero section background image controls */
+        :root {
+            /* Hero image customization: adjust these variables for scale and position */
+            --hero-bg-image: url('mainimage.jpeg');
+            --hero-bg-size: 90%; /* Double the size of the background image */
+            --hero-bg-position: center; /* Options: center, top, bottom, left, right, 50% 30%, etc. */
+            --hero-bg-opacity: 1.0; /* 0.0 (transparent) to 1.0 (opaque) */
+        }
+        .hero-section {
+            position: relative;
+            overflow: hidden;
+            border-radius: 0.5rem;
+            margin: 1rem;
+            box-shadow: 0 10px 32px rgba(0,0,0,0.12);
+            background: none;
+            min-height: 40rem; /* Double the default height for more image to show */
+        }
+        @media (min-width: 768px) {
+            .hero-section {
+                min-height: 56rem; /* Even taller on larger screens */
+            }
+        }
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            background-image: var(--hero-bg-image);
+            background-size: var(--hero-bg-size);
+            background-position: var(--hero-bg-position);
+            background-repeat: no-repeat; /* Prevent tiling */
+            background-attachment: center; /* Not required, but for clarity */
+            opacity: var(--hero-bg-opacity);
+            pointer-events: none;
+            transition: background-size 0.3s, background-position 0.3s, opacity 0.3s;
+        }
+        .hero-content {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 2.5rem 1.5rem 2.5rem 1.5rem;
+        }
+        .hero-content h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            color: #4F46E5;
+        }
+        .hero-nav-box {
+            background: rgba(255,255,255,0.85);
+            color: #4F46E5;
+            font-weight: 700;
+            font-size: 1.25rem;
+            border-radius: 1rem;
+            box-shadow: 0 2px 16px rgba(0,0,0,0.10);
+            padding: 1rem 2.5rem;
+            text-align: center;
+            transition: background 0.2s, color 0.2s, transform 0.2s;
+            text-decoration: none;
+            border: 2px solid #e0e7ff;
+        }
+        .hero-nav-box:hover {
+            background: #6366f1;
+            color: #fff;
+            transform: translateY(-2px) scale(1.05);
+            border-color: #6366f1;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-900">
+
+    <!-- Fixed Logo in Top Left -->
+    <div class="fixed top-[58px] left-[105px] z-50 flex flex-col items-center w-[11rem] space-y-4" style="pointer-events: none;">
+        <img src="logo.png" alt="Flaxbourne Heritage Centre Logo" class="w-[11rem] h-auto" />
+        <a href="https://www.facebook.com/groups/2180521355391960" target="_blank" rel="noopener noreferrer"
+           class="w-14 h-14 flex items-center justify-center bg-blue-600 rounded-full shadow-lg hover:bg-blue-700 transition duration-300"
+           style="pointer-events: auto;">
+            <img src="fb.webp" alt="Facebook" class="w-8 h-8 object-contain" />
+            <span class="sr-only">Connect with us on Facebook</span>
+        </a>
+        <a href="https://g.page/r/Cf3DKA1gCSPQEAE/review" target="_blank" rel="noopener noreferrer" style="pointer-events: auto;">
+            <img src="g.png" alt="G Logo" class="w-10 h-10 object-contain" />
+        </a>
+    </div>
+    
+    <!-- Header Section -->
+    <header class="bg-white shadow-md py-4 px-6 md:px-12 sticky top-0 z-50 rounded-b-lg">
+        <div class="container mx-auto flex flex-col md:flex-row justify-between items-center">
+            <!-- Website Logo/Title -->
+            <a href="#" class="text-2xl font-bold text-indigo-700 hover:text-indigo-900 transition duration-300 ease-in-out">
+                <!-- Logo is now fixed above -->
+            </a>
+            <!-- Navigation Menu removed -->
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-section">
+        <div class="hero-bg"></div>
+        <div class="container mx-auto hero-content" style="margin-left: 75px; margin-bottom: 50px;">
+            <div class="flex flex-row justify-center items-center w-full space-x-16 md:space-x-32" style="transform: translateY(-80px);">
+                <a href="#events" class="hero-nav-box">Visit Us</a>
+                <a href="#about" class="hero-nav-box">About Us</a>
+                <a href="#contact" class="hero-nav-box">Contact</a>
+                <a href="#support" class="hero-nav-box">Support</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Events Section -->
+    <section id="events" class="py-16 md:py-24 bg-gray-50 m-4 rounded-lg shadow-xl">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row md:space-x-0 items-stretch mb-12">
+                <div class="flex-1 flex flex-col items-center justify-center mb-6 md:mb-0" style="transform: translateX(100px);">
+                    <h2 class="text-3xl md:text-5xl font-bold text-center text-indigo-800">Visit Us</h2>
+                </div>
+                <div class="flex-1 flex items-center justify-center mb-6 md:mb-0">
+                    <!-- Facebook logo removed -->
+                </div>
+                <div class="flex-1 flex flex-col items-center justify-center mb-6 md:mb-0" style="transform: translateX(-100px);">
+                    <h2 class="text-3xl md:text-5xl font-bold text-center text-indigo-800">Opening Hours</h2>
+                </div>
+            </div>
+            <div class="flex flex-col md:flex-row md:space-x-12 items-stretch">
+                <div class="flex-1 flex flex-col items-center justify-center mb-6 md:mb-0">
+                    <div class="flex flex-col items-center mt-0">
+                        <div class="mb-4 text-lg font-semibold text-indigo-900">Flaxbourne Heritage Centre, Ward Street, Ward</div>
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3062.964964024052!2d174.1368561!3d-41.8251846!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6d39a9005712e43d%3A0xd02309600d28c3fd!2sFlaxbourne%20Heritage%20Centre%20(Interactive%20Museum)!5e0!3m2!1sen!2snz!4v1719500000000!5m2!1sen!2snz"
+                            width="600" height="600" style="border:0; border-radius: 1rem; box-shadow: 0 4px 24px rgba(0,0,0,0.08);"
+                            allowfullscreen=""
+                            loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade"
+                            title="Flaxbourne Heritage Centre Location">
+                        </iframe>
+                    </div>
+                </div>
+                <div class="flex-1 flex flex-col items-center justify-start mb-6 md:mb-0">
+                    <div class="flex flex-col items-center mt-0 w-full">
+                        <div class="mt-2 text-lg md:text-xl font-semibold text-indigo-900 text-center w-full flex justify-center" style="margin-left:50px;">
+                            <div class="grid grid-cols-2 gap-x-0 gap-y-1 w-auto mx-auto">
+                                <div class="text-left pr-4">Monday:</div><div class="text-left pl-0">9:00am to 3:00pm</div>
+                                <div class="text-left pr-4">Tuesday:</div><div class="text-left pl-0">9:00am to 3:00pm</div>
+                                <div class="text-left pr-4">Wednesday:</div><div class="text-left pl-0">9:00am to 3:00pm</div>
+                                <div class="text-left pr-4">Thursday:</div><div class="text-left pl-0">9:00am to 3:00pm</div>
+                                <div class="text-left pr-4">Friday:</div><div class="text-left pl-0">9:00am to 3:00pm</div>
+                                <div class="text-left pr-4 text-red-800 font-bold">Saturday:</div><div class="text-left pl-0 text-red-800 font-bold">10:00am to 4:00pm</div>
+                                <div class="text-left pr-4 text-red-800 font-bold">Sunday:</div><div class="text-left pl-0 text-red-800 font-bold">10:00am to 4:00pm</div>
+                            </div>
+                        </div>
+                        <a href="https://www.thewhaletrail.nz/" target="_blank" rel="noopener noreferrer" class="block mt-8 w-full max-w-xs md:max-w-sm lg:max-w-md xl:max-w-lg mx-auto group flex flex-col items-center justify-center" style="position:relative; left:calc(50% - 75px); transform:translateX(-50%);">
+                            <div class="relative flex flex-col items-center justify-center">
+                                <img src="whaletrail.jpeg" alt="Whale Trail Cycleway" class="rounded-xl shadow-lg object-cover w-full h-auto cursor-pointer transition-transform duration-200 group-hover:scale-105" style="aspect-ratio: 4/3;" />
+                                <div class="absolute bottom-0 left-0 right-0 bg-black/90 text-white text-center text-base md:text-lg font-semibold py-2 rounded-b-xl opacity-90">
+                                    We are on the Whale Trail Pathway
+                                </div>
+                                <div class="absolute top-2 right-2 bg-black/90 text-white px-3 py-1 rounded-full text-xs font-bold shadow-md border border-gray-700">
+                                    Info Link
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="flex justify-center mb-8">
+                <!-- Facebook logo removed -->
+            </div>
+        </div>
+    </section>
+
+    <!-- About Us Section -->
+    <section id="about" class="py-28 md:py-56 bg-white m-4 rounded-lg shadow-xl relative overflow-hidden">
+        <img src="mttapi.jpg" alt="Background" class="absolute inset-0 w-full h-full object-cover opacity-80 z-0" style="pointer-events: none;" />
+        <div class="container mx-auto px-6 pt-0 pb-0 relative z-10 flex flex-col justify-start" style="height:100%;">
+            <div class="flex flex-col md:flex-row items-start md:space-x-12 mt-0">
+                <div class="md:w-1/2 text-lg leading-relaxed mx-auto font-bold text-justify mt-0" style="margin-top:-10rem;">
+                    <h2 class="text-3xl md:text-5xl font-bold text-center text-indigo-800 mb-4 mt-0">Who We Are</h2>
+                    <p class="mb-4 mt-0 space-y-8">
+                        The Heritage Trust was formed shortly after the devastating 2016 earthquake that destroyed our old museum.<br><br>
+                        Years of hard work planning and resolve have come together in a new, exciting and modern way to showcase our rich and wonderful history – The Flaxbourne Heritage Centre<br><br>
+                        Kevin Loe (Chairman), Sally Peter (Patron), Ally Avery (Funding)  Derrick Millton (East Coast representative), Jodie Palatchie (Rangitane representative) and John Hickman (Treasurer)<br>
+                        <span class="font-semibold text-indigo-700" style="display:inline-block; margin-top:0;">The Flaxbourne Heritage Trust 2025</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-8 md:py-16 text-indigo-900 m-4 rounded-lg shadow-xl relative overflow-hidden min-h-[28rem] md:min-h-[39rem]">
+        <div class="absolute inset-0 w-full h-full bg-white/10 z-0" style="pointer-events: none;"></div>
+        <div class="container mx-auto px-6 text-center relative z-10">
+            <div class="flex flex-col md:flex-row items-stretch justify-center md:space-x-24 w-full mb-12">
+                <div class="flex-1 flex flex-col items-center justify-start mb-6 md:mb-0" style="transform: translateX(100px);">
+                    <h2 class="text-3xl md:text-5xl font-bold text-center text-indigo-800 mb-4 mt-0">Get in Touch</h2>
+                    <p class="text-xl max-w-2xl font-bold text-indigo-900 text-center mb-8">
+                        Have questions or want to get involved? We'd love to hear from you!
+                    </p>
+                    <div class="bg-white/80 p-6 rounded-lg shadow-md w-full md:w-auto hover:bg-white transition duration-300 ease-in-out flex flex-col items-center mt-4">
+                        <h3 class="text-2xl font-semibold mb-4 text-indigo-800">Email Us</h3>
+                        <p class="text-lg font-bold text-indigo-900 mb-4">
+                            <a href="mailto:admin@fhc.org.nz" class="text-indigo-700 hover:underline">admin@fhc.org.nz</a>
+                        </p>
+                        <button type="button" onclick="window.location.href='mailto:admin@fhc.org.nz'" class="mt-2 px-6 py-3 bg-indigo-700 text-white font-bold rounded-lg shadow hover:bg-indigo-800 transition duration-200 text-lg">Send Message</button>
+                    </div>
+                </div>
+                <div class="flex-1 flex flex-col items-center justify-start mb-6 md:mb-0">
+                    <h2 class="text-3xl md:text-5xl font-bold text-center text-indigo-800 mb-4 mt-0">Or want to Support?</h2>
+                    <a href="https://giv2.net/2/GqSxNRvL" target="_blank" rel="noopener noreferrer">
+                        <img src="giv2.png" alt="Support QR Code" class="mt-4 w-96 h-96 object-contain rounded-xl" />
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer class="bg-gray-800 text-white py-8 px-6 md:px-12 text-center rounded-t-lg">
+        <div class="container mx-auto">
+            <p class="text-sm mb-4">&copy; Flaxbourne Proud.</p>
+            <div class="flex justify-center space-x-6 text-xl">
+                <!-- Social Media Icons (replace with actual links) -->
+                <a href="#" class="text-gray-400 hover:text-white transition duration-300 ease-in-out">
+                    <!-- Example: Replace with Font Awesome or Lucide React icons if using React, or SVG for HTML -->
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987H9.692v-3.622h3.128V8.413c0-2.508 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.797.143v3.24l-1.918.001c-1.504 0-1.797.715-1.797 1.763v2.313h3.587l-.467 3.622h-3.12V24h6.116C23.406 24 24 23.408 24 22.674V1.326C24 .592 23.406 0 22.675 0" clip-rule="evenodd"></path></svg>
+                </a>
+                <a href="#" class="text-gray-400 hover:text-white transition duration-300 ease-in-out">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.238 2.76 7.82 6.574 9.176.48.09.654-.208.654-.46v-1.636c-2.67.581-3.23-1.285-3.23-1.285-.436-1.107-1.066-1.399-1.066-1.399-.87-.597.067-.585.067-.585.962.067 1.472.99 1.472.99.852 1.455 2.234 1.036 2.77.794.086-.617.333-1.036.606-1.275-2.127-.24-4.366-1.064-4.366-4.734 0-1.042.368-1.898 1.02-2.564-.102-.24-.442-1.21.096-2.52.827-.267 2.723 1.01 2.723 1.01s1.896-.267 2.723-1.01c.538 1.31.2 2.28.096 2.52.652.666 1.02 1.522 1.02 2.564 0 3.67-2.24 4.493-4.366 4.734.34.293.64.87.64 1.764v2.54c0 .252.174.55.654.46C19.24 19.82 22 16.238 22 12c0-5.523-4.477-10-10-10z"></path></svg>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // JavaScript for basic interactivity, e.g., smooth scrolling for navigation
+        document.addEventListener('DOMContentLoaded', () => {
+            const navLinks = document.querySelectorAll('nav ul li a');
+
+            for (const link of navLinks) {
+                link.addEventListener('click', function(e) {
+                    // Prevent default anchor click behavior
+                    e.preventDefault();
+
+                    // Get the target section's ID from the href (e.g., "#about")
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetSection = document.getElementById(targetId);
+
+                    if (targetSection) {
+                        // Scroll to the target section smoothly
+                        targetSection.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            }
+
+            // Simple form submission handler (for demonstration, won't send actual email)
+            const contactForm = document.querySelector('#contact form');
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(e) {
+                    e.preventDefault(); // Prevent default form submission
+
+                    // In a real application, you would send this data to a server
+                    // using fetch API or XMLHttpRequest.
+                    console.log('Form submitted!');
+                    alert('Thank you for your message! This is a demo form and does not send actual emails.');
+
+                    // Clear the form (optional)
+                    this.reset();
+                });
+            }
+        });
+    </script>
+</body>
+</html>
+
