@@ -97,17 +97,20 @@
 <body class="bg-gray-100 text-gray-900">
 
     <!-- Fixed Logo in Top Left -->
-    <div class="fixed top-[58px] left-[105px] z-50 flex flex-col items-center w-[11rem] space-y-4" style="pointer-events: none;">
-        <img src="logo.png" alt="Flaxbourne Heritage Centre Logo" class="w-[11rem] h-auto" />
-        <a href="https://www.facebook.com/groups/2180521355391960" target="_blank" rel="noopener noreferrer"
-           class="w-14 h-14 flex items-center justify-center bg-blue-600 rounded-full shadow-lg hover:bg-blue-700 transition duration-300"
-           style="pointer-events: auto;">
-            <img src="fb.webp" alt="Facebook" class="w-8 h-8 object-contain" />
-            <span class="sr-only">Connect with us on Facebook</span>
-        </a>
-        <a href="https://g.page/r/Cf3DKA1gCSPQEAE/review" target="_blank" rel="noopener noreferrer" style="pointer-events: auto;">
-            <img src="g.png" alt="G Logo" class="w-10 h-10 object-contain" />
-        </a>
+    <div class="fixed top-4 left-4 z-50 flex flex-col items-start w-auto md:flex-row md:items-center md:top-[58px] md:left-[105px]" style="pointer-events: none;">
+        <div class="flex flex-row items-center w-full">
+            <img src="logo.png" alt="Flaxbourne Heritage Centre Logo" class="w-32 h-auto md:w-[11rem]" />
+            <div class="flex flex-row items-center space-x-3 ml-2 md:absolute md:left-full md:top-1/2 md:-translate-y-1/2 md:ml-6 md:space-x-6" style="pointer-events: auto;">
+                <a href="https://www.facebook.com/groups/2180521355391960" target="_blank" rel="noopener noreferrer"
+                   class="w-10 h-10 md:w-14 md:h-14 flex items-center justify-center bg-blue-600 rounded-full shadow-lg hover:bg-blue-700 transition duration-300">
+                    <img src="fb.webp" alt="Facebook" class="w-6 h-6 md:w-8 md:h-8 object-contain" />
+                    <span class="sr-only">Connect with us on Facebook</span>
+                </a>
+                <a href="https://g.page/r/Cf3DKA1gCSPQEAE/review" target="_blank" rel="noopener noreferrer">
+                    <img src="g.png" alt="G Logo" class="w-10 h-10 md:w-14 md:h-14 object-contain" />
+                </a>
+            </div>
+        </div>
     </div>
     
     <!-- Header Section -->
@@ -124,8 +127,8 @@
     <!-- Hero Section -->
     <section id="home" class="hero-section">
         <div class="hero-bg"></div>
-        <div class="container mx-auto hero-content" style="margin-left: 75px; margin-bottom: 50px;">
-            <div class="flex flex-row justify-center items-center w-full space-x-16 md:space-x-32" style="transform: translateY(-80px);">
+        <div class="container mx-auto hero-content md:ml-[75px] md:mb-[50px] ml-0 mb-0">
+            <div class="flex flex-row flex-wrap justify-center items-center w-full space-x-4 md:space-x-16 lg:space-x-32" style="transform: translateY(-80px);">
                 <a href="#events" class="hero-nav-box">Visit Us</a>
                 <a href="#about" class="hero-nav-box">About Us</a>
                 <a href="#contact" class="hero-nav-box">Contact</a>
@@ -154,7 +157,8 @@
                         <div class="mb-4 text-lg font-semibold text-indigo-900">Flaxbourne Heritage Centre, Ward Street, Ward</div>
                         <iframe
                             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3062.964964024052!2d174.1368561!3d-41.8251846!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6d39a9005712e43d%3A0xd02309600d28c3fd!2sFlaxbourne%20Heritage%20Centre%20(Interactive%20Museum)!5e0!3m2!1sen!2snz!4v1719500000000!5m2!1sen!2snz"
-                            width="600" height="600" style="border:0; border-radius: 1rem; box-shadow: 0 4px 24px rgba(0,0,0,0.08);"
+                            class="w-full max-w-xs md:max-w-lg lg:max-w-xl xl:max-w-2xl h-64 md:h-[600px] rounded-xl shadow-lg"
+                            style="border:0;"
                             allowfullscreen=""
                             loading="lazy"
                             referrerpolicy="no-referrer-when-downgrade"
@@ -234,7 +238,7 @@
                 <div class="flex-1 flex flex-col items-center justify-start mb-6 md:mb-0">
                     <h2 class="text-3xl md:text-5xl font-bold text-center text-indigo-800 mb-4 mt-0">Or want to Support?</h2>
                     <a href="https://giv2.net/2/GqSxNRvL" target="_blank" rel="noopener noreferrer">
-                        <img src="giv2.png" alt="Support QR Code" class="mt-4 w-96 h-96 object-contain rounded-xl" />
+                        <img src="giv2.png" alt="Support QR Code" class="mt-4 w-48 h-48 md:w-96 md:h-96 object-contain rounded-xl" />
                     </a>
                 </div>
             </div>
