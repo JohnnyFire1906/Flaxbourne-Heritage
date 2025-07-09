@@ -91,6 +91,35 @@
             transform: translateY(-2px) scale(1.05);
             border-color: #6366f1;
         }
+        /* Google Review party pop hover effect */
+        .google-review-party:hover {
+            animation: pop-party 0.5s cubic-bezier(.36,1.56,.64,1) both;
+            box-shadow: 0 0 0 4px #fbbf24, 0 0 0 8px #34a853, 0 0 0 12px #ea4335, 0 0 0 16px #4285f4;
+            background: linear-gradient(90deg, #4285f4 0%, #ea4335 25%, #fbbc05 50%, #34a853 75%, #4285f4 100%);
+            color: #fff !important;
+        }
+        /* Facebook party pop hover effect */
+        .fb-party:hover {
+            animation: pop-party 0.5s cubic-bezier(.36,1.56,.64,1) both;
+            box-shadow: 0 0 0 4px #1877f3, 0 0 0 8px #4267B2, 0 0 0 12px #8b9dc3, 0 0 0 16px #3b5998;
+            background: linear-gradient(90deg, #1877f3 0%, #4267B2 50%, #8b9dc3 100%);
+            color: #fff !important;
+        }
+        /* Giv2 party pop hover effect */
+        .giv2-party:hover {
+            animation: pop-party 0.5s cubic-bezier(.36,1.56,.64,1) both;
+            box-shadow: 0 0 0 4px #6366f1, 0 0 0 8px #fbbf24, 0 0 0 12px #34a853, 0 0 0 16px #ea4335;
+            background: linear-gradient(90deg, #6366f1 0%, #fbbf24 33%, #34a853 66%, #ea4335 100%);
+            color: #fff !important;
+        }
+        @keyframes pop-party {
+            0% { transform: scale(1) rotate(0deg); }
+            20% { transform: scale(1.15) rotate(-5deg); }
+            40% { transform: scale(1.25) rotate(5deg); }
+            60% { transform: scale(1.18) rotate(-3deg); }
+            80% { transform: scale(1.12) rotate(2deg); }
+            100% { transform: scale(1) rotate(0deg); }
+        }
     </style>
 </head>
 <body class="bg-gray-100 text-gray-900">
@@ -99,12 +128,21 @@
         <div class="flex flex-row items-center w-full">
             <img src="logo.png" alt="Flaxbourne Heritage Centre Logo" class="w-24 h-auto md:w-[11rem]" /> <div class="flex flex-row items-center space-x-2 ml-2 md:absolute md:left-full md:top-1/2 md:-translate-y-1/2 md:ml-6 md:space-x-6" style="pointer-events: auto;">
                 <a href="https://www.facebook.com/groups/2180521355391960" target="_blank" rel="noopener noreferrer"
-                   class="w-8 h-8 md:w-14 md:h-14 flex items-center justify-center bg-blue-600 rounded-full shadow-lg hover:bg-blue-700 transition duration-300">
+                   class="w-8 h-8 md:w-14 md:h-14 flex items-center justify-center bg-blue-600 rounded-full shadow-lg transition duration-300 fb-party">
                     <img src="fb.webp" alt="Facebook" class="w-5 h-5 md:w-8 md:h-8 object-contain" /> <span class="sr-only">Connect with us on Facebook</span>
                 </a>
                 <a href="https://g.page/r/Cf3DKA1gCSPQEAE/review" target="_blank" rel="noopener noreferrer"
-                   class="w-8 h-8 md:w-14 md:h-14 flex items-center justify-center rounded-full shadow-lg hover:opacity-80 transition duration-300">
-                    <img src="g.png" alt="G Logo" class="w-8 h-8 md:w-14 md:h-14 object-contain" />
+                   class="w-auto h-8 md:h-14 flex flex-col items-center justify-center rounded-full shadow-lg transition duration-300 bg-white border border-gray-300 px-2 md:px-4 group google-review-party">
+                    <span class="flex items-center text-xs md:text-lg font-bold" style="font-family: 'Product Sans', Arial, sans-serif; letter-spacing: 0.5px;">
+                      <span style="color:#4285F4; font-size:1.3em;">G</span>
+                      <span style="color:#EA4335; font-size:1.3em;">o</span>
+                      <span style="color:#FBBC05; font-size:1.3em;">o</span>
+                      <span style="color:#4285F4; font-size:1.3em;">g</span>
+                      <span style="color:#34A853; font-size:1.3em;">l</span>
+                      <span style="color:#EA4335; font-size:1.3em;">e</span>
+                    </span>
+                    <span class="font-semibold text-xs md:text-base mt-0 md:mt-0.5" style="color:#444; font-family: 'Bell MT', 'Inter', serif; letter-spacing:0.5px;">Review</span>
+                    <span class="sr-only">Google Review</span>
                 </a>
             </div>
         </div>
@@ -214,8 +252,9 @@
                 </div>
                 <div class="flex-1 flex flex-col items-center justify-start mb-6 md:mb-0">
                     <h2 class="text-3xl md:text-5xl font-bold text-center text-indigo-800 mb-4 mt-0">Or want to Support?</h2>
-                    <a href="https://giv2.net/2/GqSxNRvL" target="_blank" rel="noopener noreferrer">
-                        <img src="giv2.png" alt="Support QR Code" class="mt-4 w-40 h-40 md:w-96 md:h-96 object-contain rounded-xl" /> <div class="text-center text-indigo-800 font-semibold mt-2 text-base md:text-lg">Click or scan this QR code to support us</div>
+                    <a href="https://giv2.net/2/GqSxNRvL" target="_blank" rel="noopener noreferrer" class="giv2-party">
+                        <img src="giv2.png" alt="Support QR Code" class="mt-4 w-40 h-40 md:w-96 md:h-96 object-contain rounded-xl" />
+                        <div class="text-center text-indigo-800 font-semibold mt-2 text-base md:text-lg">Click or scan this QR code to support us</div>
                     </a>
                 </div>
             </div>
