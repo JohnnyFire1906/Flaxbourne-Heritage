@@ -327,49 +327,92 @@
             menu.classList.toggle('hidden');
         });
 
-        // Enhanced hero slideshow with preloading and reduced-motion respect
+        // Robust hero slideshow loader: tries common filename variants (jpg/jpeg, casing)
         document.addEventListener('DOMContentLoaded', () => {
             const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-            const heroImages = [ 'mainimage.jpeg', 'Mainimage2.jpeg', 'Mainimage3.jpeg' ];
-            let currentIndex = 0;
-            let fadeIndex = 0;
-            const bgEls = [ document.getElementById('hero-bg-1'), document.getElementById('hero-bg-2') ];
-            // Preload images
-            heroImages.forEach(src => { const img = new Image(); img.src = src; });
-            // Initialize
-            bgEls[0].style.backgroundImage = `url('${heroImages[0]}')`;
-            bgEls[1].style.backgroundImage = `url('${heroImages[1]}')`;
-            function crossfadeTo(nextIndex) {
-                if (prefersReduced) {
-                    bgEls[0].style.backgroundImage = `url('${heroImages[nextIndex]}')`;
-                    bgEls[1].style.backgroundImage = `url('${heroImages[nextIndex]}')`;
-                    return;
-                }
-                const fadeOutEl = bgEls[fadeIndex % 2];
-                const fadeInEl = bgEls[(fadeIndex + 1) % 2];
-                fadeInEl.style.backgroundImage = `url('${heroImages[nextIndex]}')`;
-                fadeInEl.style.transition = 'opacity 1.2s ease-in-out';
-                fadeOutEl.style.transition = 'opacity 1.2s ease-in-out';
-                fadeInEl.style.opacity = 1;
-                fadeOutEl.style.opacity = 0;
-                fadeIndex = (fadeIndex + 1) % 2;
-            }
-            if (!prefersReduced) setInterval(() => {
-                const nextIndex = (currentIndex + 1) % heroImages.length;
-                crossfadeTo(nextIndex);
-                currentIndex = nextIndex;
-            }, 10000);
 
-            // Contact form handler
-            const contactForm = document.querySelector('#contact form');
-            if (contactForm) {
-                contactForm.addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    console.log('Form submitted!');
-                    alert('Thank you for your message! This is a demo form and does not send actual emails.');
-                    this.reset();
+            // Provide candidate filename lists for each slide. Adjust names to match what you uploaded if needed.
+            const slideCandidates = [
+                ['mainimage.jpeg','mainimage.jpg','Mainimage.jpeg','Mainimage.jpg'],
+                ['Mainimage2.jpeg','Mainimage2.jpg','mainimage2.jpeg','mainimage2.jpg'],
+                ['Mainimage3.jpeg','Mainimage3.jpg','mainimage3.jpeg','mainimage3.jpg']
+            ];
+
+            function tryLoad(src) {
+                return new Promise((resolve, reject) => {
+                    const img = new Image();
+                    img.onload = () => resolve(src);
+                    img.onerror = () => reject(src);
+                    img.src = src;
                 });
             }
+
+            async function resolveSlide(candidates) {
+                for (const c of candidates) {
+                    try {
+                        const found = await tryLoad(c);
+                        return found;
+                    } catch (e) {
+                        // try next candidate
+                    }
+                }
+                return null;
+            }
+
+            (async function initHero() {
+                // Resolve actual files present on the server
+                const heroImages = [];
+                for (const candidates of slideCandidates) {
+                    const found = await resolveSlide(candidates);
+                    heroImages.push(found || candidates[0]); // fallback to first candidate if none load
+                }
+
+                // Preload resolved images
+                heroImages.forEach(src => { if (src) { const img = new Image(); img.src = src; }});
+
+                // Initialize hero layers
+                let currentIndex = 0;
+                let fadeIndex = 0;
+                const bgEls = [ document.getElementById('hero-bg-1'), document.getElementById('hero-bg-2') ];
+                // Defensive: ensure elements exist
+                if (!bgEls[0] || !bgEls[1]) return;
+
+                bgEls[0].style.backgroundImage = `url('${heroImages[0]}')`;
+                bgEls[1].style.backgroundImage = `url('${heroImages[1]}')`;
+
+                function crossfadeTo(nextIndex) {
+                    if (prefersReduced) {
+                        bgEls[0].style.backgroundImage = `url('${heroImages[nextIndex]}')`;
+                        bgEls[1].style.backgroundImage = `url('${heroImages[nextIndex]}')`;
+                        return;
+                    }
+                    const fadeOutEl = bgEls[fadeIndex % 2];
+                    const fadeInEl = bgEls[(fadeIndex + 1) % 2];
+                    fadeInEl.style.backgroundImage = `url('${heroImages[nextIndex]}')`;
+                    fadeInEl.style.transition = 'opacity 1.2s ease-in-out';
+                    fadeOutEl.style.transition = 'opacity 1.2s ease-in-out';
+                    fadeInEl.style.opacity = 1;
+                    fadeOutEl.style.opacity = 0;
+                    fadeIndex = (fadeIndex + 1) % 2;
+                }
+
+                if (!prefersReduced) setInterval(() => {
+                    const nextIndex = (currentIndex + 1) % heroImages.length;
+                    crossfadeTo(nextIndex);
+                    currentIndex = nextIndex;
+                }, 10000);
+
+                // Contact form handler (kept here so it runs after DOM ready)
+                const contactForm = document.querySelector('#contact form');
+                if (contactForm) {
+                    contactForm.addEventListener('submit', function(e) {
+                        e.preventDefault();
+                        console.log('Form submitted!');
+                        alert('Thank you for your message! This is a demo form and does not send actual emails.');
+                        this.reset();
+                    });
+                }
+            })();
         });
     </script>
 
