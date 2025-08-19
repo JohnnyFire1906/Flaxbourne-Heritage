@@ -18,17 +18,21 @@
         }
         /* Hero section background image controls */
         :root {
-            /* Hero image customization: adjust these variables for scale and position */
-            --hero-bg-image: url('mainimage.jpeg');
-            --hero-bg-size: 150%; /* Start larger for mobile to show more of the image */
+            /* Hero image customization: use cover so the image fills the hero area */
+            --hero-bg-image: url('mainimage.jpeg'); /* Default image */
+            --hero-bg-size: cover; /* Fill area without letterboxing (may crop) */
             --hero-bg-position: center; /* Default */
             --hero-bg-opacity: 1.0; /* 0.0 (transparent) to 1.0 (opaque) */
+            --hero-bg-color: transparent; /* No visible fallback color needed with cover */
+            /* Header offset used to keep page content visible when header is fixed */
+            --header-offset: 5rem; /* default header height to offset layout (adjust if needed) */
         }
         .hero-section {
             position: relative;
             overflow: hidden;
-            border-radius: 0.5rem;
-            margin: 1rem;
+            /* Remove top rounding so image extends under header; keep bottom corners rounded */
+            border-radius: 0 0 0.5rem 0.5rem;
+            margin: 0; /* remove gap so hero reaches the very top of the page */
             box-shadow: 0 10px 32px rgba(0,0,0,0.12);
             background: none;
             min-height: 30rem; /* Adjusted for mobile */
@@ -37,9 +41,8 @@
             .hero-section {
                 min-height: 56rem; /* Even taller on larger screens */
             }
-            :root {
-                --hero-bg-size: 90%; /* Original size for larger screens */
-            }
+            /* Slightly larger header on wider screens */
+            :root { --header-offset: 6rem; }
         }
         .hero-bg {
             position: absolute;
@@ -50,10 +53,17 @@
             background-position: var(--hero-bg-position);
             background-repeat: no-repeat; /* Prevent tiling */
             background-attachment: scroll; /* Changed from fixed/center to scroll for mobile */
+            background-color: var(--hero-bg-color); /* now transparent */
             opacity: var(--hero-bg-opacity);
             pointer-events: none;
-            transition: background-size 0.3s, background-position 0.3s, opacity 0.3s;
+            transition: opacity 1s, background-image 0s, background-size 0.3s, background-position 0.3s;
         }
+        /* Header overlays the hero without pushing content down */
+        header { position: fixed; top: 0; left: 0; right: 0; z-index: 60; }
+        /* Do not add top padding: let the hero extend under the header.
+           Prevent anchor jumps from hiding content behind the fixed header by applying
+           scroll-margin-top to non-hero sections. */
+        main, section:not(.hero-section) { scroll-margin-top: var(--header-offset); }
         .hero-content {
             position: absolute;
             left: 0;
@@ -131,49 +141,74 @@
     </script>
 </head>
 <body class="bg-gray-100 text-gray-900">
+    <!-- Skip link for keyboard users -->
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:bg-white focus:text-indigo-800 focus:px-3 focus:py-2 focus:rounded-md">Skip to content</a>
 
-    <div class="fixed top-4 left-4 z-50 flex flex-col items-start w-auto md:flex-row md:items-center md:top-[58px] md:left-[105px]" style="pointer-events: none;">
-        <div class="flex flex-row items-center w-full">
-            <img src="logo.png" alt="Flaxbourne Heritage Centre Logo" class="w-24 h-auto md:w-[11rem]" /> <div class="flex flex-row items-center space-x-2 ml-2 md:absolute md:left-full md:top-1/2 md:-translate-y-1/2 md:ml-6 md:space-x-6" style="pointer-events: auto;">
-                <a href="https://www.facebook.com/groups/2180521355391960" target="_blank" rel="noopener noreferrer"
-                   class="w-8 h-8 md:w-14 md:h-14 flex items-center justify-center bg-blue-600 rounded-full shadow-lg transition duration-300 fb-party">
-                    <img src="fb.webp" alt="Facebook" class="w-5 h-5 md:w-8 md:h-8 object-contain" /> <span class="sr-only">Connect with us on Facebook</span>
+    <!-- Mobile/desktop header with hamburger (transparent glass-style banner) -->
+    <header class="bg-white/10 backdrop-blur-sm py-4 px-6 md:px-12 sticky top-0 z-50">
+        <div class="container mx-auto flex items-center justify-between">
+             <a href="#" class="flex items-center space-x-3" aria-label="Flaxbourne Heritage Centre home">
+                 <img src="logo.png" alt="Flaxbourne Heritage Centre Logo" class="w-20 h-auto md:w-[11rem]" loading="lazy" decoding="async" />
+                 <span class="text-2xl font-bold text-indigo-700">Flaxbourne Heritage</span>
+             </a>
+             <nav class="hidden md:flex space-x-6" role="navigation" aria-label="Main navigation">
+                 <a href="#events" class="hero-nav-box">Visit Us</a>
+                 <a href="#about" class="hero-nav-box">About Us</a>
+                 <a href="#contact" class="hero-nav-box">Contact</a>
+                 <a href="https://giv2.net/donor/result/GqSxNRvL" class="hero-nav-box">Support</a>
+             </nav>
+            <!-- Social links in header (desktop) -->
+            <div class="hidden md:flex items-center space-x-3 ml-4">
+                <a href="https://www.facebook.com/groups/2180521355391960" target="_blank" rel="noopener noreferrer" class="fb-party w-10 h-10 flex items-center justify-center rounded-full bg-blue-600 text-white shadow-md" aria-label="Visit our Facebook page">
+                    <img src="fb.webp" alt="Facebook" class="w-5 h-5 object-contain" />
                 </a>
-                <a href="https://g.page/r/Cf3DKA1gCSPQEAE/review" target="_blank" rel="noopener noreferrer"
-                   class="w-auto h-8 md:h-14 flex flex-col items-center justify-center rounded-full shadow-lg transition duration-300 bg-white border border-gray-300 px-2 md:px-4 group google-review-party">
-                    <span class="flex items-center text-xs md:text-lg font-bold" style="font-family: 'Product Sans', Arial, sans-serif; letter-spacing: 0.5px;">
-                      <span style="color:#4285F4; font-size:1.3em;">G</span>
-                      <span style="color:#EA4335; font-size:1.3em;">o</span>
-                      <span style="color:#FBBC05; font-size:1.3em;">o</span>
-                      <span style="color:#4285F4; font-size:1.3em;">g</span>
-                      <span style="color:#34A853; font-size:1.3em;">l</span>
-                      <span style="color:#EA4335; font-size:1.3em;">e</span>
+                <a href="https://g.page/r/Cf3DKA1gCSPQEAE/review" target="_blank" rel="noopener noreferrer" class="google-review-party flex items-center justify-center bg-white border border-gray-300 px-2 py-1 rounded-full shadow-md" aria-label="Leave a Google review">
+                    <span class="flex items-center text-sm font-bold" style="font-family: 'Product Sans', Arial, sans-serif; letter-spacing: 0.5px;">
+                        <span style="color:#4285F4; font-size:1.1em;">G</span>
+                        <span style="color:#EA4335; font-size:1.1em;">o</span>
+                        <span style="color:#FBBC05; font-size:1.1em;">o</span>
+                        <span style="color:#4285F4; font-size:1.1em;">g</span>
+                        <span style="color:#34A853; font-size:1.1em;">l</span>
+                        <span style="color:#EA4335; font-size:1.1em;">e</span>
                     </span>
-                    <span class="font-semibold text-xs md:text-base mt-0 md:mt-0.5" style="color:#444; font-family: 'Bell MT', 'Inter', serif; letter-spacing:0.5px;">Review</span>
-                    <span class="sr-only">Google Review</span>
                 </a>
             </div>
-        </div>
-    </div>
-
-    <header class="bg-white shadow-md py-4 px-6 md:px-12 sticky top-0 z-50 rounded-b-lg">
-        <div class="container mx-auto flex flex-col md:flex-row justify-between items-center">
-            <a href="#" class="text-2xl font-bold text-indigo-700 hover:text-indigo-900 transition duration-300 ease-in-out">
+             <button id="mobile-menu-toggle" class="md:hidden p-2 rounded-md bg-indigo-600 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500" aria-controls="mobile-menu" aria-expanded="false" aria-label="Toggle menu">
+                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+             </button>
+         </div>
+         <div id="mobile-menu" class="hidden bg-white/80 backdrop-blur-sm border-t md:hidden">
+             <div class="flex flex-col px-4 py-3 space-y-2">
+                 <a href="#events" class="py-2 px-3 rounded-md text-indigo-700 font-semibold">Visit Us</a>
+                 <a href="#about" class="py-2 px-3 rounded-md text-indigo-700 font-semibold">About Us</a>
+                 <a href="#contact" class="py-2 px-3 rounded-md text-indigo-700 font-semibold">Contact</a>
+                 <a href="https://giv2.net/donor/result/GqSxNRvL" class="py-2 px-3 rounded-md text-indigo-700 font-semibold">Support</a>
+             </div>
+            <!-- Social links for mobile menu -->
+            <div class="flex items-center justify-center space-x-4 px-4 pb-4">
+                <a href="https://www.facebook.com/groups/2180521355391960" target="_blank" rel="noopener noreferrer" class="fb-party w-10 h-10 flex items-center justify-center rounded-full bg-blue-600 text-white shadow-md" aria-label="Visit our Facebook page">
+                    <img src="fb.webp" alt="Facebook" class="w-5 h-5 object-contain" />
                 </a>
-        </div>
+                <a href="https://g.page/r/Cf3DKA1gCSPQEAE/review" target="_blank" rel="noopener noreferrer" class="google-review-party flex items-center justify-center bg-white border border-gray-300 px-3 py-1 rounded-full shadow-md" aria-label="Leave a Google review">
+                    <span class="flex items-center text-sm font-bold" style="font-family: 'Product Sans', Arial, sans-serif; letter-spacing: 0.5px;">
+                        <span style="color:#4285F4; font-size:1em;">G</span>
+                        <span style="color:#EA4335; font-size:1em;">o</span>
+                        <span style="color:#FBBC05; font-size:1em;">o</span>
+                        <span style="color:#4285F4; font-size:1em;">g</span>
+                        <span style="color:#34A853; font-size:1em;">l</span>
+                        <span style="color:#EA4335; font-size:1em;">e</span>
+                    </span>
+                </a>
+            </div>
+         </div>
     </header>
 
+    <main id="main-content">
     <section id="home" class="hero-section">
-        <div class="hero-bg"></div>
+        <div class="hero-bg" id="hero-bg-1" style="opacity:1;"></div>
+        <div class="hero-bg" id="hero-bg-2" style="opacity:0;"></div>
         <div class="container mx-auto hero-content md:ml-[75px] md:mb-[50px] ml-0 mb-0">
-            <div class="flex flex-col md:flex-row flex-wrap items-center w-full space-y-3 md:space-y-0 space-x-0 md:space-x-16 lg:space-x-32 md:absolute md:bottom-[50px] md:left-1/2 md:-translate-x-1/2">
-                <div class="w-full flex flex-col md:flex-row items-center space-y-3 md:space-y-0 md:space-x-16 lg:space-x-32 pl-4 pr-2 md:pl-0 md:pr-0 md:justify-center">
-                    <a href="#events" class="hero-nav-box w-full md:w-auto">Visit Us</a>
-                    <a href="#about" class="hero-nav-box w-full md:w-auto">About Us</a>
-                    <a href="#contact" class="hero-nav-box w-full md:w-auto">Contact</a>
-                    <a href="https://giv2.net/donor/result/GqSxNRvL" class="hero-nav-box w-full md:w-auto">Support</a>
-                </div>
-            </div>
+            <!-- Hero overlay navigation removed. Use header navigation instead. -->
         </div>
     </section>
 
@@ -216,7 +251,7 @@
                         </div>
                         <a href="https://www.thewhaletrail.nz/" target="_blank" rel="noopener noreferrer" class="block mt-8 w-full max-w-xs md:max-w-sm lg:max-w-md xl:max-w-lg mx-auto group flex flex-col items-center justify-center">
                             <div class="relative flex flex-col items-center justify-center">
-                                <img src="whaletrail.jpeg" alt="Whale Trail Cycleway" class="rounded-xl shadow-lg object-cover w-full h-auto cursor-pointer transition-transform duration-200 group-hover:scale-105" style="aspect-ratio: 4/3;" />
+                                <img src="whaletrail.jpeg" alt="Whale Trail Cycleway" class="rounded-xl shadow-lg object-cover w-full h-auto cursor-pointer transition-transform duration-200 group-hover:scale-105" style="aspect-ratio: 4/3;" loading="lazy" decoding="async" />
                                 <div class="absolute bottom-0 left-0 right-0 bg-black/90 text-white text-center text-sm md:text-lg font-semibold py-2 rounded-b-xl opacity-90"> We are on the Whale Trail Pathway
                                 </div>
                                 <div class="absolute top-2 right-2 bg-black/90 text-white px-3 py-1 rounded-full text-xs font-bold shadow-md border border-gray-700">
@@ -231,7 +266,7 @@
     </section>
 
     <section id="about" class="py-8 md:py-56 bg-white m-2 md:m-4 rounded-lg shadow-xl relative overflow-hidden">
-        <img src="mttapi.jpg" alt="Background" class="absolute inset-0 w-full h-full object-cover opacity-80 z-0" style="pointer-events: none;" />
+        <img src="mttapi.jpg" alt="Background" class="absolute inset-0 w-full h-full object-cover opacity-80 z-0" style="pointer-events: none;" loading="lazy" decoding="async" />
         <span class="absolute bottom-2 right-2 md:right-4 z-10 text-xs md:text-base bg-white/80 text-gray-800 px-2 md:px-3 py-1 rounded shadow-md" style="pointer-events: none;">Mt Tapuae-o-uenuku and Flaxbourne by John Gully circa 1860s</span>
         <div class="container mx-auto px-2 md:px-6 pt-0 pb-0 relative z-10 flex flex-col justify-start h-full">
             <div class="flex flex-col md:flex-row items-start md:space-x-12 mt-0" style="margin-top:-10rem;">
@@ -284,18 +319,52 @@
     </footer>
 
     <script>
-        // JavaScript for basic interactivity, e.g., smooth scrolling for navigation
-        document.addEventListener('DOMContentLoaded', () => {
-            // Note: Your navigation links are now inside the hero section,
-            // so this selector for 'nav ul li a' won't find them directly.
-            // If you intend for these buttons to scroll, they already have hrefs.
-            // The `scroll-behavior: smooth;` in CSS handles the smooth scroll.
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-toggle')?.addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            const expanded = this.getAttribute('aria-expanded') === 'true';
+            this.setAttribute('aria-expanded', String(!expanded));
+            menu.classList.toggle('hidden');
+        });
 
-            // The contact form submission handler seems fine as is.
+        // Enhanced hero slideshow with preloading and reduced-motion respect
+        document.addEventListener('DOMContentLoaded', () => {
+            const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            const heroImages = [ 'mainimage.jpeg', 'Mainimage2.jpeg', 'Mainimage3.jpeg' ];
+            let currentIndex = 0;
+            let fadeIndex = 0;
+            const bgEls = [ document.getElementById('hero-bg-1'), document.getElementById('hero-bg-2') ];
+            // Preload images
+            heroImages.forEach(src => { const img = new Image(); img.src = src; });
+            // Initialize
+            bgEls[0].style.backgroundImage = `url('${heroImages[0]}')`;
+            bgEls[1].style.backgroundImage = `url('${heroImages[1]}')`;
+            function crossfadeTo(nextIndex) {
+                if (prefersReduced) {
+                    bgEls[0].style.backgroundImage = `url('${heroImages[nextIndex]}')`;
+                    bgEls[1].style.backgroundImage = `url('${heroImages[nextIndex]}')`;
+                    return;
+                }
+                const fadeOutEl = bgEls[fadeIndex % 2];
+                const fadeInEl = bgEls[(fadeIndex + 1) % 2];
+                fadeInEl.style.backgroundImage = `url('${heroImages[nextIndex]}')`;
+                fadeInEl.style.transition = 'opacity 1.2s ease-in-out';
+                fadeOutEl.style.transition = 'opacity 1.2s ease-in-out';
+                fadeInEl.style.opacity = 1;
+                fadeOutEl.style.opacity = 0;
+                fadeIndex = (fadeIndex + 1) % 2;
+            }
+            if (!prefersReduced) setInterval(() => {
+                const nextIndex = (currentIndex + 1) % heroImages.length;
+                crossfadeTo(nextIndex);
+                currentIndex = nextIndex;
+            }, 10000);
+
+            // Contact form handler
             const contactForm = document.querySelector('#contact form');
             if (contactForm) {
                 contactForm.addEventListener('submit', function(e) {
-                    e.preventDefault(); // Prevent default form submission
+                    e.preventDefault();
                     console.log('Form submitted!');
                     alert('Thank you for your message! This is a demo form and does not send actual emails.');
                     this.reset();
@@ -303,5 +372,14 @@
             }
         });
     </script>
+
+    <style>
+        /* Accessibility and performance helpers */
+        @media (prefers-reduced-motion: reduce) {
+            * { animation: none !important; transition: none !important; }
+        }
+        :focus { outline: 2px dashed #4F46E5; outline-offset: 3px; }
+        .sr-only.focus\:not-sr-only:focus { position: absolute; left: 1rem; top: 1rem; transform: none; }
+    </style>
 </body>
 </html>
